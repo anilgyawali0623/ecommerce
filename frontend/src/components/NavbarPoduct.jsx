@@ -1,6 +1,7 @@
 import React from "react";
 import { FaToiletPaper } from "react-icons/fa6";
-import manProduct from "./navbarproduct/manProduct.jpeg";
+ import pic from './navbarproduct/skin.jpeg'
+// import manProduct from "./navbarproduct/manProduct.jpeg";
 function NavbarPoduct() {
   let imageArray = [
     { imgSrc: " ./navbarproduct/fragrance.jpeg", title: "fragrance" },
@@ -12,14 +13,19 @@ function NavbarPoduct() {
     <div className="h-10 size-full px-24 border-b-[1px] border-[#808080] py-12 flex items-center justify-center">
  
       <div className="flex gap-x-10 py-10">
-      <div  className="cursor-pointer">
-            <img
-              src="./navbarproduct/fragrance.jpeg"
-              className="h-12"
-              
-            />
+        {
+ imageArray.map(({title})=>{
+ return(
+   <div  className="cursor-pointer" key={title}>
+             <img
+               src={pic}
+               className="h-12"
+               
+               />
             <p className="text-center text-[13px]">fasf</p>
           </div>
+  ) })
+              }
       </div>
     </div>
   );

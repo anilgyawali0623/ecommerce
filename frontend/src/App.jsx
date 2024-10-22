@@ -4,6 +4,7 @@ import TopBar from "./components/TopBar";
 import Navbar from "./components/Navbar";
 import NavbarPoduct from "./components/NavbarPoduct";
 import BannerImage from "./components/BannerImage";
+import ShopBrand from "./components/ShopBrand";
 function App() {
   return (
     <div>
@@ -11,6 +12,7 @@ function App() {
       <Navbar />
       <NavbarPoduct />
       <BannerImage />
+      <ShopBrand />
     </div>
   );
 }

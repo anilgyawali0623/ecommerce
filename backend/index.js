@@ -1,1 +1,17 @@
-console.log("anil is gyawali ");
+import express from "express";
+import dotenv from "dotenv";
+import mongoose from "mongoose";
+dotenv.config();
+// console.log(process.env.MONGO_DB);
+mongoose
+  .connect("mongodb+srv://anilgyawali:anilgyawali@cluster0.zvebt.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+  .then(() => {
+    console.log("mongo db is connected");
+  })
+  .catch((err) => {
+    console.log('error is ');
+  });
+// const app = express();
+// app.listen(3000, () => {
+//   console.log("fasfa");
+// });

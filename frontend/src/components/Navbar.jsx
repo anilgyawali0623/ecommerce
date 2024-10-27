@@ -5,7 +5,6 @@ import { CiUser } from "react-icons/ci";
 import { FaBagShopping } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 function Navbar({ toggleModal }) {
-
   return (
     <div className="h-9 size-full  px-24  border-b-[1px] border-[#808080] py-9 flex  items-center justify-between">
       <div>
@@ -37,7 +36,7 @@ function Navbar({ toggleModal }) {
 
       <div className=" flex gap-x-4">
         <IoMdSearch />
-        <CiUser  onClick={toggleModal}  className="cursor-pointer" />
+        <CiUser onClick={toggleModal} className="cursor-pointer" />
         <FaBagShopping />
       </div>
     </div>

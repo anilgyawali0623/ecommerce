@@ -1,5 +1,43 @@
 import React, { useState } from "react";
+import { Alert, Spinner } from "flowbite-react";
 function Signup({ isModalOpen, toggleModal }) {
+  const [formData, setFormData] = useState({});
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const handeleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.username || !formData.email || !formData.password) {
+      return setErrorMessage("please fill all the fields");
+    }
+
+    try {
+      setLoading(true);
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        setErrorMessage(data.message);
+      }
+      setLoading(false);
+      if (res.ok) {
+        console.log("success");
+      }
+    } catch (error) {
+      setLoading(false);
+
+      setErrorMessage(error.message);
+    }
+
+    console.log(errorMessage);
+  };
+  console.log(formData);
   return (
     <div>
       {isModalOpen && (
@@ -35,8 +73,8 @@ function Signup({ isModalOpen, toggleModal }) {
               </div>
 
               <div className="p-4 md:p-5">
-                <form className="space-y-4" action="#">
-                <div>
+                <form className="space-y-4" onSubmit={handleSubmit}>
+                  <div>
                     <label
                       htmlFor="password"
                       className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -50,9 +88,10 @@ function Signup({ isModalOpen, toggleModal }) {
                       placeholder="username"
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                       required
+                      onChange={handeleChange}
                     />
                   </div>
-                
+
                   <div>
                     <label
                       htmlFor="email"
@@ -67,6 +106,7 @@ function Signup({ isModalOpen, toggleModal }) {
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                       placeholder="name@company.com"
                       required
+                      onChange={handeleChange}
                     />
                   </div>
                   <div>
@@ -83,17 +123,25 @@ function Signup({ isModalOpen, toggleModal }) {
                       placeholder="••••••••"
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                       required
+                      onChange={handeleChange}
                     />
                   </div>
-                
+
                   <button
                     type="submit"
                     className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    disabled={loading}
                   >
-                    Sign up
+                    {loading ? (
+                      <>
+                        <Spinner size="sm" />
+                        <span className="pl-3">Loading...</span>
+                      </>
+                    ) : (
+                      "Sign Up"
+                    )}
                   </button>
                   <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
-                    
                     <a
                       href="#"
                       className="text-blue-700 hover:underline dark:text-blue-500"

@@ -7,6 +7,7 @@ import About from "./pages/About";
 import Collection from "./pages/Collection";
 import Home from "./pages/Home";
 import Signup from "./components/Signup";
+import ProductInput from "./pages/ProductInput";
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -19,6 +20,7 @@ function App() {
         <TopBar />
         <Navbar toggleModal={toggleModal} />
         <Routes>
+          <Route path="/adminPanel" element={<ProductInput/>}/>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/collections/:name" element={<Collection />} />

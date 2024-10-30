@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import { Alert, Spinner } from "flowbite-react";
-function Signup({ isModalOpen, toggleModal }) {
+import {  toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
+function Signup({ isModalOpen, toggleModal,setIsModalOpen  }) {
   const [formData, setFormData] = useState({});
   const [errorMessage, setErrorMessage] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const navigate = useNavigate("");
   const handeleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
@@ -28,11 +33,14 @@ function Signup({ isModalOpen, toggleModal }) {
       setLoading(false);
       if (res.ok) {
         console.log("success");
+        toast("signup successful");
+      setIsModalOpen(false)
       }
     } catch (error) {
       setLoading(false);
 
       setErrorMessage(error.message);
+      toast("failed in signin");
     }
 
     console.log(errorMessage);

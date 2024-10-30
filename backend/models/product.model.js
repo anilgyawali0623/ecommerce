@@ -14,6 +14,14 @@ const product = new mongoose.Schema({
     type: String,
     required: true,
   },
+  mainImage: {
+    type: String,
+    required: true,
+  },
+  additionalImages: {
+    type: [String], // Array of image URLs
+    default: [],
+  },
   newPrice: {
     type: Number,
     required: true,
@@ -35,9 +43,11 @@ const product = new mongoose.Schema({
   },
   totalSold: {
     type: Number,
+    default: 0,
   },
   rating: {
     type: Number,
+    default: 1,
   },
 });
 

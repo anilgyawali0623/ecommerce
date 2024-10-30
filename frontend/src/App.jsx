@@ -1,36 +1,33 @@
 import React, { useState } from "react";
-import { Button } from "flowbite-react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import TopBar from "./components/TopBar";
 import Navbar from "./components/Navbar";
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import About from "./pages/About";
 import Collection from "./pages/Collection";
 import Home from "./pages/Home";
 import Signup from "./components/Signup";
 import ProductInput from "./pages/ProductInput";
+
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
+
   return (
     <div>
       <BrowserRouter>
         <TopBar />
         <Navbar toggleModal={toggleModal} />
         <Routes>
-          <Route path="/adminPanel" element={<ProductInput/>}/>
+          {/* <Route path="/adminPanel" element={<ProductInput />} /> */}
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/collections/:name" element={<Collection />} />
-          <Route
-            path="/sign-up"
-            element={
-              <Signup isModalOpen={isModalOpen} toggleModal={toggleModal} />
-            }
-          />
         </Routes>
+
+        {isModalOpen && <Signup isModalOpen={isModalOpen} toggleModal={toggleModal} />}
       </BrowserRouter>
     </div>
   );
